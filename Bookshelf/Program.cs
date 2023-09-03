@@ -11,6 +11,11 @@ bookInMemory.BookAdded += BookDataAdded;
 
 Menu();
 
+void BookDataAdded(object sender, EventArgs args)
+{
+    Console.WriteLine();
+    Console.WriteLine("+ Dodano nową książkę");
+}
 void Menu()
 {
     while (!CloseApp)
@@ -128,14 +133,9 @@ void AddBookToBookShelf()
         Console.WriteLine($"Exception handled / {e.Message}");
     }
 }
-void BookDataAdded(object sender, EventArgs args)
-{
-    Console.WriteLine();
-    Console.WriteLine("+ Dodano nową książkę");
-}
-
 void SearchBookByAuthor()
 {
+    Console.WriteLine();
     Console.Write("Wpisz autora: ");
     var author = Console.ReadLine().ToUpper();
     Console.WriteLine();
@@ -144,6 +144,7 @@ void SearchBookByAuthor()
 
 void SearchBookByGrade()
 {
+    Console.WriteLine();
     Console.Write("Wpisz ocenę: ");
     var grade = Console.ReadLine();
     Console.WriteLine();
@@ -152,6 +153,7 @@ void SearchBookByGrade()
 
 void SearchBookByTitle()
 {
+    Console.WriteLine();
     Console.Write("Wpisz tytuł: ");
     var title = Console.ReadLine().ToUpper();
     Console.WriteLine();
@@ -180,6 +182,7 @@ void AddBookToBookShelfInMemory()
 }
 void SearchBookByAuthorInMemory()
 {
+    Console.WriteLine();
     Console.Write("Wpisz autora: ");
     var author = Console.ReadLine().ToUpper();
     Console.WriteLine();
@@ -188,6 +191,7 @@ void SearchBookByAuthorInMemory()
 
 void SearchBookByGradeInMemory()
 {
+    Console.WriteLine();
     Console.Write("Wpisz ocenę: ");
     var grade = Console.ReadLine();
     Console.WriteLine();
@@ -196,6 +200,7 @@ void SearchBookByGradeInMemory()
 
 void SearchBookByTitleInMemory()
 {
+    Console.WriteLine();
     Console.Write("Wpisz tytuł: ");
     var title = Console.ReadLine().ToUpper();
     Console.WriteLine();

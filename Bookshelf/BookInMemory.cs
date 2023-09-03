@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection.PortableExecutable;
 
 namespace Bookshelf
@@ -42,17 +43,26 @@ namespace Bookshelf
 
         public override void SearchAuthor(string author)
         {
+            bool isThere = false;
             foreach (string s in books)
             {
                 string[] currentLine = s.Split("/");
                 if (currentLine[0].ToUpper().Contains(author))
                 {
                     Console.WriteLine($"Autor: {currentLine[0]} | Tytuł: {currentLine[1]} | Ocena: {currentLine[2]}");
+                    isThere = true;
                 }
                 else
                 {
                     continue;
                 }
+            }
+            if (!isThere)
+            {
+                Console.WriteLine("Autora nie ma w bazie");
+            }
+            else
+            {
             }
         }
 
@@ -83,6 +93,7 @@ namespace Bookshelf
                 }
                 else
                 {
+                    continue;
                 }
             }
         }
