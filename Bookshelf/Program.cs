@@ -1,4 +1,4 @@
-﻿using bookshelf;
+﻿using Bookshelf;
 
 const string fileName = "books.txt";
 
@@ -6,12 +6,15 @@ bool CloseApp = false;
 
 var book = new Book();
 book.BookAdded += BookDataAdded;
+var bookInMemory = new BookInMemory();
+bookInMemory.BookAdded += BookDataAdded;
 
 Menu();
 
 void Menu()
 {
     while (!CloseApp)
+
     {
         Console.WriteLine();
         Console.WriteLine("1. Operuj na Pamięci");
@@ -51,16 +54,16 @@ void InMemory()
         switch (input)
         {
             case "1":
-                AddBookToBookShelf();
+                AddBookToBookShelfInMemory();
                 break;
             case "2":
-                SearchBookByAuthor();
+                SearchBookByAuthorInMemory();
                 break;
             case "3":
-                SearchBookByGrade();
+                SearchBookByGradeInMemory();
                 break;
             case "4":
-                SearchBookByTitle();
+                SearchBookByTitleInMemory();
                 break;
             case "X":
                 Menu();
@@ -107,7 +110,6 @@ void SaveIt()
         }
     }
 }
-
 void AddBookToBookShelf()
 {
     Console.Write("Autor: ");
@@ -149,6 +151,32 @@ void SearchBookByGrade()
 }
 
 void SearchBookByTitle()
+{
+    Console.Write("Wpisz tytuł: ");
+    var title = Console.ReadLine().ToUpper();
+    Console.WriteLine();
+    book.SearchTitle(title);
+}
+void AddBookToBookShelfInMemory()
+{
+}
+void SearchBookByAuthorInMemory()
+{
+    Console.Write("Wpisz autora: ");
+    var author = Console.ReadLine().ToUpper();
+    Console.WriteLine();
+    book.SearchAuthor(author);
+}
+
+void SearchBookByGradeInMemory()
+{
+    Console.Write("Wpisz ocenę: ");
+    var grade = Console.ReadLine();
+    Console.WriteLine();
+    book.SearchGrade(int.Parse(grade));
+}
+
+void SearchBookByTitleInMemory()
 {
     Console.Write("Wpisz tytuł: ");
     var title = Console.ReadLine().ToUpper();

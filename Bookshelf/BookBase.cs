@@ -1,4 +1,4 @@
-﻿namespace bookshelf
+﻿namespace Bookshelf
 {
     public abstract class BookBase : IBook
     {

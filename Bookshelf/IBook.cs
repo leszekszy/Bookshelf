@@ -1,6 +1,6 @@
-﻿using static bookshelf.BookBase;
+﻿using static Bookshelf.BookBase;
 
-namespace bookshelf
+namespace Bookshelf
 {
     public interface IBook
     {
