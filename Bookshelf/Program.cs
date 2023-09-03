@@ -157,15 +157,33 @@ void SearchBookByTitle()
     Console.WriteLine();
     book.SearchTitle(title);
 }
+
+// Metody InMemory
+
 void AddBookToBookShelfInMemory()
 {
+    Console.Write("Autor: ");
+    string author = Console.ReadLine();
+    Console.Write("Tytuł: ");
+    string title = Console.ReadLine();
+    Console.Write("Ocena (1-10) : ");
+    string grade = Console.ReadLine();
+    try
+    {
+        bookInMemory.SearchDuplicate(title);
+        bookInMemory.AddBook(author, title, grade);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Exception handled / {e.Message}");
+    }
 }
 void SearchBookByAuthorInMemory()
 {
     Console.Write("Wpisz autora: ");
     var author = Console.ReadLine().ToUpper();
     Console.WriteLine();
-    book.SearchAuthor(author);
+    bookInMemory.SearchAuthor(author);
 }
 
 void SearchBookByGradeInMemory()
@@ -173,7 +191,7 @@ void SearchBookByGradeInMemory()
     Console.Write("Wpisz ocenę: ");
     var grade = Console.ReadLine();
     Console.WriteLine();
-    book.SearchGrade(int.Parse(grade));
+    bookInMemory.SearchGrade(int.Parse(grade));
 }
 
 void SearchBookByTitleInMemory()
@@ -181,5 +199,5 @@ void SearchBookByTitleInMemory()
     Console.Write("Wpisz tytuł: ");
     var title = Console.ReadLine().ToUpper();
     Console.WriteLine();
-    book.SearchTitle(title);
+    bookInMemory.SearchTitle(title);
 }
