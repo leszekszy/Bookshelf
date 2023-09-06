@@ -1,13 +1,12 @@
 ﻿using Bookshelf;
+using System.Diagnostics;
+using static Bookshelf.BookBase;
 
-const string fileName = "books.txt";
-
+var booksintheshelf = new BooksInTheShelf();
+booksintheshelf.BookAdded += BookDataAdded;
 bool CloseApp = false;
 
 var book = new Book();
-book.BookAdded += BookDataAdded;
-var bookInMemory = new BookInMemory();
-bookInMemory.BookAdded += BookDataAdded;
 
 Menu();
 
@@ -126,7 +125,7 @@ void AddBookToBookShelf()
     try
     {
         book.SearchDuplicate(title);
-        book.AddBook(author, title, grade);
+        book.AddBook();
     }
     catch (Exception e)
     {
@@ -170,10 +169,11 @@ void AddBookToBookShelfInMemory()
     string title = Console.ReadLine();
     Console.Write("Ocena (1-10) : ");
     string grade = Console.ReadLine();
+    var book = new BookInMemory(author, title, grade);
     try
     {
-        bookInMemory.SearchDuplicate(title);
-        bookInMemory.AddBook(author, title, grade);
+        book.SearchDuplicate(title);
+        booksintheshelf.AddBookToShelf(book);
     }
     catch (Exception e)
     {
@@ -182,15 +182,19 @@ void AddBookToBookShelfInMemory()
 }
 void SearchBookByAuthorInMemory()
 {
-    Console.WriteLine();
-    Console.Write("Wpisz autora: ");
-    var author = Console.ReadLine().ToUpper();
-    Console.WriteLine();
-    bookInMemory.SearchAuthor(author);
+    //var bookInMemory = new BookInMemory();
+    //Console.WriteLine();
+    //Console.Write("Wpisz autora: ");
+    //var author = Console.ReadLine().ToUpper();
+    //Console.WriteLine();
+    //bookInMemory.SearchAuthor(author);
+    var booksintheshelf = new BooksInTheShelf();
+    booksintheshelf.Search();
 }
 
 void SearchBookByGradeInMemory()
 {
+    var bookInMemory = new BookInMemory();
     Console.WriteLine();
     Console.Write("Wpisz ocenę: ");
     var grade = Console.ReadLine();
@@ -200,6 +204,7 @@ void SearchBookByGradeInMemory()
 
 void SearchBookByTitleInMemory()
 {
+    var bookInMemory = new BookInMemory();
     Console.WriteLine();
     Console.Write("Wpisz tytuł: ");
     var title = Console.ReadLine().ToUpper();

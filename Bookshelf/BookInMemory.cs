@@ -6,14 +6,27 @@ namespace Bookshelf
 {
     public class BookInMemory : BookBase
     {
+        public BookInMemory(string author, string title, string grade)
+        {
+            this.Author = author;
+            this.Title = title;
+            this.Grade = grade;
+        }
+        public BookInMemory()
+        {
+        }
+        public string Author { get; private set; }
+        public string Title { get; private set; }
+        public string Grade { get; private set; }
+
         private List<string> books = new List<string>();
         public override event BookAddedDelegate BookAdded;
 
-        public override void AddBook(string author, string title, string grade)
+        public override void AddBook()
         {
-            if (int.Parse(grade) >= 0 && int.Parse(grade) <= 10)
+            if (int.Parse(this.Grade) >= 0 && int.Parse(this.Grade) <= 10)
             {
-                    books.Add($"{author}/{title}/{grade}");
+                    books.Add($"{this.Author}/{this.Title}/{this.Grade}");
                     if (BookAdded != null)
                     {
                         BookAdded(this, new EventArgs());

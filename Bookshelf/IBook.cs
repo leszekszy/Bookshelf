@@ -8,7 +8,7 @@ namespace Bookshelf
         void SearchTitle(string title);
         void SearchGrade(int grade);
         void SearchDuplicate(string title);
-        void AddBook(string author, string title, string grade);
+        void AddBook();
         event BookAddedDelegate BookAdded;
     }
 }

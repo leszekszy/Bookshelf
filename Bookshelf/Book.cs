@@ -4,15 +4,27 @@ namespace Bookshelf
 {
     public class Book : BookBase
     {
+        public Book(string author, string title, string grade)
+        {
+            this.Author = author;
+            this.Title = title;
+            this.Grade = grade;
+        }
+        public Book()
+        {
+        }
+        public string Author { get; private set; }
+        public string Title { get; private set; }
+        public string Grade { get; private set; }
         public override event BookAddedDelegate BookAdded;
         const string fileName = "books.txt";
-        public override void AddBook(string author, string title, string grade)
+        public override void AddBook()
         {
-            if (int.Parse(grade) >= 0 && int.Parse(grade) <= 10)
+            if (int.Parse(this.Grade) >= 0 && int.Parse(this.Grade) <= 10)
             {
                 using (var writer = File.AppendText(fileName))
                 {
-                    writer.WriteLine($"{author}/{title}/{grade}");
+                    writer.WriteLine($"{this.Author}/{this.Title}/{this.Grade}");
                     if (BookAdded != null)
                     {
                         BookAdded(this, new EventArgs());
