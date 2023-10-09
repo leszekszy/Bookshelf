@@ -2,8 +2,12 @@
 using System.Diagnostics;
 using static Bookshelf.BookBase;
 
-var booksintheshelf = new BooksInTheShelf();
-booksintheshelf.BookAdded += BookDataAdded;
+var booksInMemory = new BooksInMemory();
+booksInMemory.BookAdded += BookDataAdded;
+
+var booksInFile = new BooksInFile();
+booksInFile.BookAdded += BookDataAdded;
+
 bool CloseApp = false;
 
 var book = new Book();
@@ -58,7 +62,7 @@ void InMemory()
         switch (input)
         {
             case "1":
-                AddBookToBookShelfInMemory();
+                AddBookToMemory();
                 break;
             case "2":
                 SearchBookByAuthorInMemory();
@@ -94,16 +98,16 @@ void SaveIt()
         switch (input)
         {
             case "1":
-                AddBookToBookShelf();
+                AddBookToFile();
                 break;
             case "2":
-                SearchBookByAuthor();
+                SearchBookByAuthorInFile();
                 break;
             case "3":
-                SearchBookByGrade();
+                SearchBookByGradeInFile();
                 break;
             case "4":
-                SearchBookByTitle();
+                SearchBookByTitleInFile();
                 break;
             case "X":
                 Menu();
@@ -114,100 +118,100 @@ void SaveIt()
         }
     }
 }
-void AddBookToBookShelf()
+void AddBookToFile()
 {
+    Console.WriteLine();
     Console.Write("Autor: ");
     string author = Console.ReadLine();
     Console.Write("Tytuł: ");
     string title = Console.ReadLine();
     Console.Write("Ocena (1-10) : ");
     string grade = Console.ReadLine();
+    var book = new Book(author, title, grade);
     try
     {
-        book.SearchDuplicate(title);
-        book.AddBook();
+        booksInFile.SearchDuplicate(title);
+        booksInFile.AddBook(book);
     }
     catch (Exception e)
     {
+        Console.WriteLine();
         Console.WriteLine($"Exception handled / {e.Message}");
     }
 }
-void SearchBookByAuthor()
+void SearchBookByAuthorInFile()
 {
     Console.WriteLine();
     Console.Write("Wpisz autora: ");
     var author = Console.ReadLine().ToUpper();
     Console.WriteLine();
-    book.SearchAuthor(author);
+    booksInFile.SearchAuthor(author);
 }
 
-void SearchBookByGrade()
+void SearchBookByGradeInFile()
 {
     Console.WriteLine();
     Console.Write("Wpisz ocenę: ");
     var grade = Console.ReadLine();
     Console.WriteLine();
-    book.SearchGrade(int.Parse(grade));
+    //book.SearchGrade(int.Parse(grade));
 }
 
-void SearchBookByTitle()
+void SearchBookByTitleInFile()
 {
     Console.WriteLine();
     Console.Write("Wpisz tytuł: ");
     var title = Console.ReadLine().ToUpper();
     Console.WriteLine();
-    book.SearchTitle(title);
+    //book.SearchTitle(title);
 }
 
 // Metody InMemory
 
-void AddBookToBookShelfInMemory()
+void AddBookToMemory()
 {
+    Console.WriteLine();
     Console.Write("Autor: ");
     string author = Console.ReadLine();
     Console.Write("Tytuł: ");
     string title = Console.ReadLine();
     Console.Write("Ocena (1-10) : ");
     string grade = Console.ReadLine();
-    var book = new BookInMemory(author, title, grade);
+    var book = new Book(author, title, grade);
     try
     {
-        book.SearchDuplicate(title);
-        booksintheshelf.AddBookToShelf(book);
+        booksInMemory.SearchDuplicate(title);
+        booksInMemory.AddBook(book);
     }
     catch (Exception e)
     {
+        Console.WriteLine();
         Console.WriteLine($"Exception handled / {e.Message}");
     }
 }
 void SearchBookByAuthorInMemory()
 {
-    //var bookInMemory = new BookInMemory();
-    //Console.WriteLine();
-    //Console.Write("Wpisz autora: ");
-    //var author = Console.ReadLine().ToUpper();
-    //Console.WriteLine();
-    //bookInMemory.SearchAuthor(author);
-    var booksintheshelf = new BooksInTheShelf();
-    booksintheshelf.Search();
+    Console.WriteLine();
+    Console.Write("Wpisz autora: ");
+    var author = Console.ReadLine();
+    Console.WriteLine();
+    booksInMemory.SearchAuthor(author);
 }
 
 void SearchBookByGradeInMemory()
 {
-    var bookInMemory = new BookInMemory();
     Console.WriteLine();
     Console.Write("Wpisz ocenę: ");
     var grade = Console.ReadLine();
     Console.WriteLine();
-    bookInMemory.SearchGrade(int.Parse(grade));
+    booksInMemory.SearchGrade(int.Parse(grade));
 }
 
 void SearchBookByTitleInMemory()
 {
-    var bookInMemory = new BookInMemory();
     Console.WriteLine();
     Console.Write("Wpisz tytuł: ");
-    var title = Console.ReadLine().ToUpper();
+    var title = Console.ReadLine();
     Console.WriteLine();
-    bookInMemory.SearchTitle(title);
+    booksInMemory.SearchTitle(title);
 }
